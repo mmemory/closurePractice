@@ -75,39 +75,24 @@ var makeCounter = function () {
   After the function has been called N number of times, console.log('STAHHP');
 */
 
-var counter;
+var counter = 0;
 
-var funcOne = function (func2, N) {
-    counter = 0;
+var funcOne = function (func2, n) {
     return function () {
-        func2(N);
-        ++counter;
+        func2(n);
     };
 };
 
 var execute = funcOne(function (times) {
-    if (counter === times) {
-        return console.log('STAHHP');
+    if (times === counter) {
+        return false;
+    } else {
+        ++counter;
+        console.log('got it');
+        console.log('#', counter);
     }
-});
+}, 5);
 
 execute();
 
-//var firstFunc = function (cb, N) {
-//    N = 0;
-//    return function () {
-//        cb(N);
-//        ++N;
-//        console.log(N);
-//    };
-//};
-//
-//var execute = firstFunc(function (times) {
-//    if (times === 5) {
-//        console.log('STAHHP')
-//    } else {
-//        execute();
-//    }
-//}, 5);
-//
-//execute();
+
