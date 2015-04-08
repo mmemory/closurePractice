@@ -5,15 +5,17 @@ var outer = function(){
   return function(){
     return 'The original name was ' + name;
   }
-}
+};
 //Above you're given a function that returns another function which has a closure over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
   //Code Here
+var inner = outer();
 
 //Once you do that, invoke inner.
 
   //Code Here
+inner();
 
 
 
@@ -33,6 +35,8 @@ var callFriend = function(){
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
   //Code Here
+var inner = callFriend();
+inner('435-215-9248');
 
 
 
@@ -43,6 +47,13 @@ var callFriend = function(){
 /*
   Write a function called makeCounter that makes the following code work properly.
 */
+
+var makeCounter = function () {
+    var counter = 0;
+    return function () {
+        return ++counter;
+    }
+};
 
   //Code Here
   var count = makeCounter();
@@ -60,10 +71,43 @@ var callFriend = function(){
 /*
   Write a function that accepts another function as it's first argument and returns a new function
   (which invokes the original function that was passed in) that can only ever be executed once.
-  Once completed, add a second arguments that allows the function to be invoked N number of times.
+  Once completed, add a second argument that allows the function to be invoked N number of times.
   After the function has been called N number of times, console.log('STAHHP');
 */
 
+var counter;
 
+var funcOne = function (func2, N) {
+    counter = 0;
+    return function () {
+        func2(N);
+        ++counter;
+    };
+};
 
+var execute = funcOne(function (times) {
+    if (counter === times) {
+        return console.log('STAHHP');
+    }
+});
 
+execute();
+
+//var firstFunc = function (cb, N) {
+//    N = 0;
+//    return function () {
+//        cb(N);
+//        ++N;
+//        console.log(N);
+//    };
+//};
+//
+//var execute = firstFunc(function (times) {
+//    if (times === 5) {
+//        console.log('STAHHP')
+//    } else {
+//        execute();
+//    }
+//}, 5);
+//
+//execute();
